@@ -20,11 +20,11 @@ export default {
     data() {
         return {
             assignments: [
-                { id: 1, name: 'Finish Project', complete: false },
-                { id: 2, name: 'Read Chapter 4', complete: false },
-                { id: 3, name: 'Turn In Homework', complete: false },
-                { id: 4, name: 'Study VueJS', complete: false },
-                { id: 5, name: 'Play World of Warcraft', complete: false },
+                { id: 1, name: 'Finish Project', complete: false, tag: 'math' },
+                { id: 2, name: 'Read Chapter 4', complete: false, tag: 'programming' },
+                { id: 3, name: 'Turn In Homework', complete: false, tag: 'math' },
+                { id: 4, name: 'Study VueJS', complete: false, tag: 'programming' },
+                { id: 5, name: 'Play World of Warcraft', complete: false, tag: 'gaming' },
             ]
         }
     },
