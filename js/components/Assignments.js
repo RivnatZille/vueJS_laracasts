@@ -8,24 +8,27 @@ export default {
     },
 
     template: `
-        <section class="space-y-6">
-            <assignment-list :assignments="filters.inProgress" title="In Progress"></assignment-list>
-            <assignment-list :assignments="filters.completed" title="Completed"></assignment-list>
+        <section class="flex gap-8">
+            <assignment-list :assignments="filters.inProgress" title="In Progress">
+                <assignment-create @add="add"></assignment-create>
+            </assignment-list>
             
-            <assignment-create @add="add"></assignment-create>
+            <div v-show="showCompleted">
+                <assignment-list
+                    :assignments="filters.completed" 
+                    title="Completed" 
+                    can-toggle
+                    @toggle="showCompleted = !showCompleted"
+                ></assignment-list>
+            </div>
         </section>
         
     `,
 
     data() {
         return {
-            assignments: [
-                { id: 1, name: 'Finish Project', complete: false, tag: 'math' },
-                { id: 2, name: 'Read Chapter 4', complete: false, tag: 'programming' },
-                { id: 3, name: 'Turn In Homework', complete: false, tag: 'math' },
-                { id: 4, name: 'Study VueJS', complete: false, tag: 'programming' },
-                { id: 5, name: 'Play World of Warcraft', complete: false, tag: 'gaming' },
-            ]
+            assignments: [],
+            showCompleted: true
         }
     },
 
@@ -36,6 +39,14 @@ export default {
                 completed: this.assignments.filter(assignment => assignment.complete)
             };
         }
+    },
+
+    created() {
+        fetch('http://localhost:3000/assignments')
+            .then(response => response.json())
+            .then(assignments => {
+                this.assignments = assignments;
+            })
     },
 
     methods: {
